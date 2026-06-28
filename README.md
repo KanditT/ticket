@@ -15,6 +15,18 @@ A full-stack event ticketing application with Ruby on Rails backend and vanilla 
 ```bash
 # Install dependencies
 bundle install
+  # rbenv install 3.3.6 IF NOT INSTALL YET
+  
+  # Install PostgreSQL and dev headers (Debian/Ubuntu)
+  sudo apt-get update
+  sudo apt-get install -y postgresql postgresql-contrib libpq-dev
+
+  # Start and enable service
+  sudo systemctl start postgresql
+  sudo systemctl enable postgresql
+
+  # Create a DB role matching your Linux user so Rails can connect without credentials
+  sudo -u postgres createuser -s $USER
 
 # Set up database
 bin/rails db:create
@@ -22,7 +34,7 @@ bin/rails db:migrate
 bin/rails db:seed  # Optional: creates sample events
 
 # Start the server
-bin/rails server p -3000
+bin/rails server -p 3000
 
 # Open in browser
 http://localhost:3000
