@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <title>Event Ticketing System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/tailwind.config.js"></script>
+    <script src="/app.js" defer></script>
+</head>
+<body class="bg-warm-gray min-h-screen p-5">
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-medium text-text-primary mb-2">Event ticketing</h1>
+            <p class="text-lg text-text-secondary">Book your tickets for upcoming events</p>
+        </header>
+
+        <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            <div class="text-center py-10 text-xl col-span-full text-text-secondary">Loading events...</div>
+        </div>
+
+        <div class="bg-white rounded-lg p-8 shadow-sm border-l-[3px] border-deep-purple mb-10" style="border-width: 0.5px; border-left-width: 3px; border-color: #D3D1C7; border-left-color: #534AB7;">
+            <h2 class="text-xl font-medium text-text-primary mb-5">Create new event</h2>
+            <form id="create-event-form" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label for="event-name" class="text-xs font-medium text-text-secondary" style="font-size: 13px;">Event name</label>
+                    <input
+                        type="text"
+                        id="event-name"
+                        required
+                        placeholder="Summer Music Festival"
+                        class="px-4 py-2.5 border border-card-border rounded-lg text-text-primary focus:outline-none focus:border-deep-purple transition"
+                    >
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="event-description" class="text-xs font-medium text-text-secondary" style="font-size: 13px;">Description</label>
+                    <textarea
+                        id="event-description"
+                        rows="3"
+                        placeholder="Describe your event..."
+                        class="px-4 py-2.5 border border-card-border rounded-lg text-text-primary focus:outline-none focus:border-deep-purple transition resize-none"
+                    ></textarea>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1">
+                        <label for="event-venue" class="text-xs font-medium text-text-secondary" style="font-size: 13px;">Venue</label>
+                        <input
+                            type="text"
+                            id="event-venue"
+                            required
+                            placeholder="Concert Hall"
+                            class="px-4 py-2.5 border border-card-border rounded-lg text-text-primary focus:outline-none focus:border-deep-purple transition"
+                        >
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="event-capacity" class="text-xs font-medium text-text-secondary" style="font-size: 13px;">Capacity</label>
+                        <input
+                            type="number"
+                            id="event-capacity"
+                            required
+                            min="1"
+                            placeholder="100"
+                            class="px-4 py-2.5 border border-card-border rounded-lg text-text-primary focus:outline-none focus:border-deep-purple transition"
+                        >
+                    </div>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="event-date" class="text-xs font-medium text-text-secondary" style="font-size: 13px;">Event date and time</label>
+                    <input
+                        type="datetime-local"
+                        id="event-date"
+                        required
+                        class="px-4 py-2.5 border border-card-border rounded-lg text-text-primary focus:outline-none focus:border-deep-purple transition"
+                    >
+                </div>
+                <button
+                    type="submit"
+                    class="text-white py-3 rounded-lg font-medium transition-all"
+                    style="background-color: #534AB7; transform: scale(1);"
+                    onmouseenter="this.style.backgroundColor='#3C3489'; this.style.transform='scale(1.01)'"
+                    onmouseleave="this.style.backgroundColor='#534AB7'; this.style.transform='scale(1)'"
+                >
+                    Create event
+                </button>
+                <div id="create-event-message" class="hidden"></div>
+            </form>
+        </div>
+
+        <div class="bg-white rounded-lg p-8 shadow-sm border-l-[3px] border-deep-purple" style="border-width: 0.5px; border-left-width: 3px; border-color: #D3D1C7; border-left-color: #534AB7;">
+            <h2 class="text-xl font-medium text-text-primary mb-5">Check your booking</h2>
+            <div class="flex gap-3 mb-5">
+                <input
+                    type="text"
+                    id="reference-input"
+                    placeholder="Enter booking reference (e.g., TKT-ABC123)"
+                    class="flex-1 px-4 py-2.5 rounded-lg border border-card-border text-text-primary focus:outline-none focus:border-deep-purple transition"
+                >
+                <button
+                    onclick="searchBooking()"
+                    class="px-6 py-2.5 rounded-lg font-medium whitespace-nowrap border border-deep-purple text-deep-purple bg-transparent hover:bg-deep-purple hover:text-white transition"
+                >
+                    Search
+                </button>
+            </div>
+            <div id="booking-result" class="hidden"></div>
+            <div id="booking-details" class="hidden p-5 rounded-lg bg-warm-gray"></div>
+        </div>
+    </div>
+</body>
+</html>
